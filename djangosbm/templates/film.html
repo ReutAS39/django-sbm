@@ -5,6 +5,31 @@
     <title>Title</title>
 </head>
 <body>
-{{film.title}}
+
+{% block content %}
+{{film.title}} <br>
+{{film.orig_title }} <br>
+Год производства {{film.year}} <br>
+Страна {{film.country}} <br>
+Жанр
+{% for g in genres %}
+{{ g.name }}
+{% endfor %}
+<br>
+
+Слоган {{film.tagline}} <br>
+{{film.description}} <br>
+
+В главных ролях:
+{% for a in actors %}
+<ul>
+    <li>
+{{ a.name }}
+    </li>
+</ul>
+{% endfor %}
+
+
+{% endblock content %}
 </body>
 </html>

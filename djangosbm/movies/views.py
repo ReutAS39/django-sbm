@@ -5,7 +5,6 @@ from movies.models import Film
 
 
 class FilmDetail(DetailView):
-
     model = Film
     template_name = 'film.html'
 
@@ -13,6 +12,8 @@ class FilmDetail(DetailView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+        context['genres'] = context['film'].genre.all()
+        context['actors'] = context['film'].actor.all()
 
         return context
 

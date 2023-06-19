@@ -22,10 +22,10 @@ class Film(models.Model):
         return self.title
 
 class FilmGenre(models.Model):
-    film = models.ForeignKey(Film, on_delete=models.CASCADE)
+    film = models.ForeignKey(Film, on_delete=models.CASCADE, related_name='genre_film')
     genre = models.ForeignKey(Genre, on_delete=models.CASCADE)
 
 
 class FilmActor(models.Model):
-    film = models.ForeignKey(Film, on_delete=models.CASCADE)
+    film = models.ForeignKey(Film, on_delete=models.CASCADE, related_name='actor_film')
     actor = models.ForeignKey(Actor, on_delete=models.CASCADE)
