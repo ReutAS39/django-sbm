@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+{% block content %}
+{% for film in film_list %}
+        <div><a href="{{ film.get_absolute_url }}">{{ film.title }}</a></div>
+        <div>{{ film.genre }} </div>
+        <div>{{ film.description|truncatewords:40}}</div>
+{% endfor %}
+{% endblock content %}
+</body>
+</html>

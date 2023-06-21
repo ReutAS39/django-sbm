@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+{% block content %}
+{{actor.name}} <br>
+Рост {{actor.height }} <br>
+Дата рождения {{actor.date_of_birth}} <br>
+Место рождения {{actor.birthplace}} <br>
+Жанры
+{% for g in genres %}
+{{ g.name }}
+{% endfor %}
+<br>
+
+
+
+{% endblock content %}
+</body>
+</html>

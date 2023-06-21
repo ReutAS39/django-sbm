@@ -20,11 +20,13 @@
 Слоган {{film.tagline}} <br>
 {{film.description}} <br>
 
+{{film.poster}} <br>
+
 В главных ролях:
 {% for a in actors %}
 <ul>
     <li>
-{{ a.name }}
+    <div><a href="{{ a.get_absolute_url }}">{{ a.name }}</a></div>
     </li>
 </ul>
 {% endfor %}
