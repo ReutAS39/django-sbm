@@ -9,7 +9,11 @@
 {% block content %}
 {% for film in film_list %}
         <div><a href="{{ film.get_absolute_url }}">{{ film.title }}</a></div>
-        <div>{{ film.genre }} </div>
+
+    {% for g in film.genre_film.all %}
+        <div>{{ g.genre_id }}</div>
+    {% endfor %}
+
         <div>{{ film.description|truncatewords:40}}</div>
 {% endfor %}
 {% endblock content %}
