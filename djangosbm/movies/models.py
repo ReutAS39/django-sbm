@@ -1,3 +1,4 @@
+from django.contrib.auth.models import User
 from django.db import models
 from django.urls import reverse
 
@@ -9,19 +10,20 @@ class Genre(models.Model):
         return self.name
 
 
-class Actor(models.Model):
+class Person(models.Model):
     name = models.CharField(max_length=255, unique=True)
+    photo = models.ImageField(upload_to="person/%Y/%m/%d/")
     # career = models.ManyToManyField(#, through='FilmActor')
     height = models.FloatField()
     date_of_birth = models.DateField()
     birthplace = models.CharField(max_length=255)
-    genres = models.ManyToManyField(Genre, through='ActorGenre')
+    genres = models.ManyToManyField(Genre, through='PersonGenre')
 
     def __str__(self):
         return self.name
 
     def get_absolute_url(self):
-        return reverse('actor', args=[str(self.pk)])
+        return reverse('person', args=[str(self.pk)])
 
 
 class Film(models.Model):
@@ -32,8 +34,10 @@ class Film(models.Model):
     genre = models.ManyToManyField(Genre, through='FilmGenre')
     tagline = models.CharField(max_length=255)
     description = models.TextField()
-    poster = models.ImageField(upload_to="media/%Y/%m/%d/")
-    actor = models.ManyToManyField(Actor, through='FilmActor')
+    poster = models.ImageField(upload_to="film/%Y/%m/%d/")
+    actor = models.ManyToManyField(Person, through='FilmActor', related_name='film_actor')
+    director = models.ManyToManyField(Person, through='FilmDirector', related_name='film_director')
+    operator = models.ManyToManyField(Person, through='FilmOperator', related_name='film_operator')
 
     def __str__(self):
         return self.title
@@ -41,16 +45,44 @@ class Film(models.Model):
     def get_absolute_url(self):
         return reverse('film', args=[str(self.pk)])
 
+
 class FilmGenre(models.Model):
     film = models.ForeignKey(Film, on_delete=models.CASCADE, related_name='genre_film')
     genre = models.ForeignKey(Genre, on_delete=models.CASCADE)
 
 
-class ActorGenre(models.Model):
-    actor = models.ForeignKey(Actor, on_delete=models.CASCADE, related_name='genre_actor')
+class PersonGenre(models.Model):
+    actor = models.ForeignKey(Person, on_delete=models.CASCADE, related_name='genre_actor')  # change to person
     genre = models.ForeignKey(Genre, on_delete=models.CASCADE)
 
 
 class FilmActor(models.Model):
     film = models.ForeignKey(Film, on_delete=models.CASCADE, related_name='actor_film')
-    actor = models.ForeignKey(Actor, on_delete=models.CASCADE)
+    person = models.ForeignKey(Person, on_delete=models.CASCADE)
+
+
+class FilmDirector(models.Model):
+    film = models.ForeignKey(Film, on_delete=models.CASCADE, related_name='director_film')
+    person = models.ForeignKey(Person, on_delete=models.CASCADE)
+
+
+class FilmOperator(models.Model):
+    film = models.ForeignKey(Film, on_delete=models.CASCADE, related_name='operator_film')
+    person = models.ForeignKey(Person, on_delete=models.CASCADE)
+
+
+class Review(models.Model):
+    film = models.ForeignKey(Film, on_delete=models.CASCADE, related_name='reviews_film')
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    title = models.CharField(max_length=255)
+    text = models.CharField(max_length=255)
+    time_in = models.DateTimeField(auto_now_add=True)
+    rating = models.IntegerField(default=0)
+
+
+class Comment(models.Model):
+    review = models.ForeignKey(Review, on_delete=models.CASCADE, related_name='comments_review')
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    text = models.CharField(max_length=255)
+    time_in = models.DateTimeField(auto_now_add=True)
+    rating = models.IntegerField(default=0)

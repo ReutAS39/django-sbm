@@ -1,8 +1,13 @@
+{% load static%}
+
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+
+    <link href="{% static 'css/styles.css' %}" rel="stylesheet" />
 </head>
 <body>
 
@@ -18,12 +23,18 @@
 <br>
 
 Слоган {{film.tagline}} <br>
+Режиссёр {{ director }}  <br>
+Оператор {{ operator }}<br>
 {{film.description}} <br>
 
-{{film.poster}} <br>
+{% if film.poster %}
+<p ><img class="img-article-left" src="{{film.poster.url }}"></p>
+{% endif %}
+
+
 
 В главных ролях:
-{% for a in actors %}
+{% for a in actor %}
 <ul>
     <li>
     <div><a href="{{ a.get_absolute_url }}">{{ a.name }}</a></div>

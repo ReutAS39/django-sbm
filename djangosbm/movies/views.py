@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.views.generic import DetailView, ListView
 
-from movies.models import Film, Actor
+from movies.models import Film, Person
 
 class FilmList(ListView):
     model = Film
@@ -22,19 +22,21 @@ class FilmDetail(DetailView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['genres'] = context['film'].genre.all()
-        context['actors'] = context['film'].actor.all()
+        context['actor'] = context['film'].actor.all()
+        context['director'] = context['film'].director.all()
+        context['operator'] = context['film'].operator.all()
 
         return context
 
-class ActorDetail(DetailView):
-    model = Actor
-    template_name = 'actor.html'
+class PersonDetail(DetailView):
+    model = Person
+    template_name = 'person.html'
 
-    context_object_name = 'actor'
+    context_object_name = 'person'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['genres'] = context['actor'].genres.all()
+        context['genres'] = context['person'].genres.all()
         # context['actors'] = context['film'].actor.all()
 
         return context

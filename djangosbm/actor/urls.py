@@ -1,7 +1,7 @@
 from django.urls import path
 
-from movies.views import ActorDetail
+from movies.views import PersonDetail
 
 urlpatterns = [
-   path('<int:pk>', (ActorDetail.as_view()), name='actor'),
+   path('<int:pk>', (PersonDetail.as_view()), name='person'),
 ]
