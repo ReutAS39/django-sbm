@@ -1,6 +1,7 @@
 from django.shortcuts import render
-from django.views.generic import DetailView, ListView
+from django.views.generic import DetailView, ListView, CreateView
 
+from movies.forms import FilmForm
 from movies.models import Film, Person
 
 class FilmList(ListView):
@@ -40,3 +41,8 @@ class PersonDetail(DetailView):
         # context['actors'] = context['film'].actor.all()
 
         return context
+
+class FilmAdd(CreateView):
+    form_class = FilmForm
+    model = Film
+    template_name = 'film_edit.html'

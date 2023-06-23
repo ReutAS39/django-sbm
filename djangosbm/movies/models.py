@@ -14,7 +14,7 @@ class Person(models.Model):
     name = models.CharField(max_length=255, unique=True)
     photo = models.ImageField(upload_to="person/%Y/%m/%d/")
     # career = models.ManyToManyField(#, through='FilmActor')
-    height = models.FloatField()
+    height = models.FloatField(blank=True, null=True)
     date_of_birth = models.DateField()
     birthplace = models.CharField(max_length=255)
     genres = models.ManyToManyField(Genre, through='PersonGenre')
@@ -28,7 +28,9 @@ class Person(models.Model):
 
 class Film(models.Model):
     title = models.CharField(max_length=255)
+    rating = models.FloatField(default=0.0)
     orig_title = models.CharField(max_length=255)
+    age_rate = models.CharField(max_length=10)
     year = models.IntegerField()
     country = models.CharField(max_length=255)
     genre = models.ManyToManyField(Genre, through='FilmGenre')
@@ -52,7 +54,7 @@ class FilmGenre(models.Model):
 
 
 class PersonGenre(models.Model):
-    actor = models.ForeignKey(Person, on_delete=models.CASCADE, related_name='genre_actor')  # change to person
+    person = models.ForeignKey(Person, on_delete=models.CASCADE, related_name='genre_actor')
     genre = models.ForeignKey(Genre, on_delete=models.CASCADE)
 
 

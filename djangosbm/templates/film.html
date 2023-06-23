@@ -23,8 +23,16 @@
 <br>
 
 Слоган {{film.tagline}} <br>
-Режиссёр {{ director }}  <br>
-Оператор {{ operator }}<br>
+Режиссёр
+{% for d in director %}
+{{ d }}
+{% endfor %}
+<br>
+Оператор
+{% for o in operator %}
+{{ o }}
+{% endfor %}
+<br>
 {{film.description}} <br>
 
 {% if film.poster %}
