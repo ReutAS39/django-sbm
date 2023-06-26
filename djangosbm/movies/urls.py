@@ -1,8 +1,9 @@
 from django.urls import path
 
-from movies.views import FilmDetail, FilmAdd
+from movies.views import FilmDetail, FilmAdd, FilmEdit
 
 urlpatterns = [
    path('<int:pk>', (FilmDetail.as_view()), name='film'),
    path('add/', FilmAdd.as_view(), name='film_add'),
+   path('<int:pk>/edit', (FilmEdit.as_view()), name='film_edit'),
 ]

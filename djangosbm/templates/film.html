@@ -25,12 +25,12 @@
 Слоган {{film.tagline}} <br>
 Режиссёр
 {% for d in director %}
-{{ d }}
+<a href="{{ d.get_absolute_url }}">{{ d.name }}</a>
 {% endfor %}
 <br>
 Оператор
 {% for o in operator %}
-{{ o }}
+<a href="{{ o.get_absolute_url }}">{{ o.name }}</a>
 {% endfor %}
 <br>
 {{film.description}} <br>

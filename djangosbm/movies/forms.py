@@ -4,6 +4,7 @@ from movies.models import Film
 
 
 class FilmForm(forms.ModelForm):
+    poster = forms.ImageField()
 
     class Meta:
         model = Film
@@ -24,4 +25,3 @@ class FilmForm(forms.ModelForm):
         #    'category': 'Категория:',
         #    'position': 'Статья/Новость:',
         # }
-

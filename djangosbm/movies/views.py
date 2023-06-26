@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from django.views.generic import DetailView, ListView, CreateView
+from django.views.generic import DetailView, ListView, CreateView, UpdateView
 
 from movies.forms import FilmForm
 from movies.models import Film, Person
@@ -29,20 +29,30 @@ class FilmDetail(DetailView):
 
         return context
 
-class PersonDetail(DetailView):
-    model = Person
-    template_name = 'person.html'
-
-    context_object_name = 'person'
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context['genres'] = context['person'].genres.all()
-        # context['actors'] = context['film'].actor.all()
-
-        return context
 
 class FilmAdd(CreateView):
     form_class = FilmForm
     model = Film
     template_name = 'film_edit.html'
+
+class FilmEdit(UpdateView):
+
+    form_class = FilmForm
+    model = Film
+    template_name = 'film_edit.html'
+
+
+    # def get_context_data(self, **kwargs):
+    #     context = super().get_context_data(**kwargs)
+    #     context['menu'] = menu
+    #     context['title'] = f"Редактирование статьи {context['post'].article}"
+    #
+    #     current_post = context['post']
+    #     path = self.request.path
+    #     if 'articles' in path:
+    #         pos = 'PO'
+    #     else:
+    #         pos = 'NE'
+    #     get_object_or_404(Post.objects.filter(position=pos), pk=current_post.pk)
+    #
+    #     return context
