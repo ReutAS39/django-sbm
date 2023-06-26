@@ -26,6 +26,24 @@
 {% endfor %}
 <br>
 
+Лучшие фильмы
+<ul>
+  {% for a in person.film_actor.all %}
+    <li>    <a href="{{ a.get_absolute_url }}">{{ a }}</a> </li>
+{% endfor %}
+</ul>
+<ul>
+  {% for d in person.film_director.all %}
+    <li>    <a href="{{ d.get_absolute_url }}">{{ d }}</a> </li>
+{% endfor %}
+</ul>
+
+<ul>
+  {% for o in person.film_operator.all %}
+    <li>    <a href="{{ o.get_absolute_url }}">{{ o }}</a> </li>
+{% endfor %}
+</ul>
+
 
 
 {% endblock content %}
