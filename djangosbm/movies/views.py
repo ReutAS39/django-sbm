@@ -1,7 +1,9 @@
 from django.shortcuts import render
+from django.urls import reverse_lazy
 from django.views.generic import DetailView, ListView, CreateView, UpdateView
+from django.views.generic.edit import FormMixin
 
-from movies.forms import FilmForm
+from movies.forms import FilmForm, ReviewForm
 from movies.models import Film, Person
 
 class FilmList(ListView):
@@ -14,10 +16,10 @@ class FilmList(ListView):
         # context['genres'] = context['film_list'].genre.all()
         return context
 
-class FilmDetail(DetailView):
+class FilmDetail(DetailView, FormMixin):
     model = Film
     template_name = 'film.html'
-
+    form_class = ReviewForm
     context_object_name = 'film'
 
     def get_context_data(self, **kwargs):
@@ -29,9 +31,25 @@ class FilmDetail(DetailView):
         context['writer'] = context['film'].writer.all()
         context['producer'] = context['film'].producer.all()
         context['composer'] = context['film'].composer.all()
-
-
         return context
+
+    def post(self, request, *args, **kwargs):
+        form = self.get_form()
+        if form.is_valid():
+            #messages.success(request, 'Комментарий добавлен.')
+            return self.form_valid(form)
+        else:
+            return self.form_invalid(form)
+
+    def form_valid(self, form):
+        self.object = form.save(commit=False)
+        self.object.film = self.get_object()
+        self.object.user = self.request.user
+        self.object.save()
+        return super().form_valid(form)
+
+    def get_success_url(self, **kwargs):
+        return reverse_lazy('film', kwargs={'pk': self.get_object().pk})
 
 
 class FilmAdd(CreateView):

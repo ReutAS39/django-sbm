@@ -1,6 +1,7 @@
 from django import forms
+from django.forms import Textarea
 
-from movies.models import Film
+from movies.models import Film, Review
 
 
 class FilmForm(forms.ModelForm):
@@ -9,19 +10,23 @@ class FilmForm(forms.ModelForm):
     class Meta:
         model = Film
         fields = '__all__'
-        # widgets = {
-        #    'article': forms.TextInput(attrs={'class': 'form-input'}),
-        #    'text': forms.Textarea(attrs={
-        #                             'cols': 80,
-        #                             'rows': 10,
-        #                             'placeholder': 'Текст',
-        #                             'style': 'resize: none;'
-        #                            }),
-        # }
 
-        # labels = {
-        #    'text': '',
-        #    'author': 'Автор:',
-        #    'category': 'Категория:',
-        #    'position': 'Статья/Новость:',
-        # }
+
+class ReviewForm(forms.ModelForm):
+    text = forms.CharField(max_length=255,
+                           label='',
+                           widget=Textarea(attrs={
+                            "cols": 60,
+                            "rows": 5,
+                            "placeholder": 'Написать рецензию...',
+                            "style": "resize:none;"
+                           })
+                           )
+
+
+    class Meta:
+        model = Review
+        fields = [
+           'title',
+           'text',
+        ]

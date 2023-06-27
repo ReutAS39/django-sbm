@@ -54,10 +54,7 @@
 {% endfor %}
 <br>
 {{film.description}} <br>
-Бюджет {{ film.budget }}$
-
-
-
+Бюджет {{ film.budget }}$<br>
 
 
 В главных ролях:
@@ -68,6 +65,33 @@
     </li>
 </ul>
 {% endfor %}
+<br>
+        <div>
+            <div>
+                <form action="#" method="post" enctype="multipart/form-data">
+{% csrf_token %}
+                <div class="form-error">{{ form.non_field_errors }}</div>
+{% for f in form %}
+                <div>
+                    <label class="form-label" for="{{ f.id_for_label }}">{{f.label}} </label>{{ f }}
+                </div>
+                <div class="form-error">{{ f.errors }}</div>
+{% endfor %}
+                <button type="submit">Отправить</button>
+                </form>
+
+
+{% for r in film.reviews_film.all %}
+                <div class="comment">
+                    <div class="comment_author"> {{ r.user }} </div>
+                    <time class="comment_date"> {{ r.time_in|date:'d M Y' }}</time>
+                    <div class="comment_author"> {{ r.title }} </div>
+                    <p class="comment_text">{{ r.text }}</p>
+
+
+                </div>
+{% endfor %}
+
 
 
 {% endblock content %}

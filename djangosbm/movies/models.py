@@ -96,7 +96,7 @@ class FilmComposer(models.Model):
 class Review(models.Model):
     film = models.ForeignKey(Film, on_delete=models.CASCADE, related_name='reviews_film')
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    title = models.CharField(max_length=255)
+    title = models.CharField(max_length=255, verbose_name='Заголовок')
     text = models.CharField(max_length=255)
     time_in = models.DateTimeField(auto_now_add=True)
     rating = models.IntegerField(default=0)
