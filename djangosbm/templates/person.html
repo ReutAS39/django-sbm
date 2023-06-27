@@ -16,8 +16,9 @@
 {% if person.photo %}
 <p><img class="img-article-left" src="{{person.photo.url}}"></p>
 {% endif %}
-
+{% if person.height%}
 Рост {{person.height }} <br>
+{% endif %}
 Дата рождения {{person.date_of_birth}} <br>
 Место рождения {{person.birthplace}} <br>
 Жанры

@@ -26,6 +26,10 @@ class FilmDetail(DetailView):
         context['actor'] = context['film'].actor.all()
         context['director'] = context['film'].director.all()
         context['operator'] = context['film'].operator.all()
+        context['writer'] = context['film'].writer.all()
+        context['producer'] = context['film'].producer.all()
+        context['composer'] = context['film'].composer.all()
+
 
         return context
 
