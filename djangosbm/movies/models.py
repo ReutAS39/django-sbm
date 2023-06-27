@@ -35,11 +35,14 @@ class Film(models.Model):
     country = models.CharField(max_length=255)
     genre = models.ManyToManyField(Genre, through='FilmGenre')
     tagline = models.CharField(max_length=255)
-    description = models.TextField()
-    poster = models.ImageField(upload_to="film/%Y/%m/%d/")
     actor = models.ManyToManyField(Person, through='FilmActor', related_name='film_actor')
     director = models.ManyToManyField(Person, through='FilmDirector', related_name='film_director')
     operator = models.ManyToManyField(Person, through='FilmOperator', related_name='film_operator')
+    budget = models.IntegerField()
+    description = models.TextField()
+    poster = models.ImageField(upload_to="film/poster/%Y/%m/%d/")
+    frame = models.ImageField(upload_to="film/frame/%Y/%m/%d/")
+
 
     def __str__(self):
         return self.title
