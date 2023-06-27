@@ -37,7 +37,10 @@ class Film(models.Model):
     tagline = models.CharField(max_length=255)
     actor = models.ManyToManyField(Person, through='FilmActor', related_name='film_actor')
     director = models.ManyToManyField(Person, through='FilmDirector', related_name='film_director')
+    writer = models.ManyToManyField(Person, through='FilmWriter', related_name='film_writer')
+    producer = models.ManyToManyField(Person, through='FilmProducer', related_name='film_producer')
     operator = models.ManyToManyField(Person, through='FilmOperator', related_name='film_operator')
+    composer = models.ManyToManyField(Person, through='FilmComposer', related_name='film_composer')
     budget = models.IntegerField()
     description = models.TextField()
     poster = models.ImageField(upload_to="film/poster/%Y/%m/%d/")
@@ -70,9 +73,23 @@ class FilmDirector(models.Model):
     film = models.ForeignKey(Film, on_delete=models.CASCADE, related_name='director_film')
     person = models.ForeignKey(Person, on_delete=models.CASCADE)
 
+class FilmWriter(models.Model):
+    film = models.ForeignKey(Film, on_delete=models.CASCADE, related_name='writer_film')
+    person = models.ForeignKey(Person, on_delete=models.CASCADE)
+
+
+class FilmProducer(models.Model):
+    film = models.ForeignKey(Film, on_delete=models.CASCADE, related_name='producer_film')
+    person = models.ForeignKey(Person, on_delete=models.CASCADE)
+
 
 class FilmOperator(models.Model):
     film = models.ForeignKey(Film, on_delete=models.CASCADE, related_name='operator_film')
+    person = models.ForeignKey(Person, on_delete=models.CASCADE)
+
+
+class FilmComposer(models.Model):
+    film = models.ForeignKey(Film, on_delete=models.CASCADE, related_name='composer_film')
     person = models.ForeignKey(Person, on_delete=models.CASCADE)
 
 
