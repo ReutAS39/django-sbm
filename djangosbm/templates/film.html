@@ -53,8 +53,11 @@
 <a href="{{ c.get_absolute_url }}">{{ c.name }}</a>
 {% endfor %}
 <br>
-{{film.description}} <br>
 Бюджет {{ film.budget }}$<br>
+Сборы в мире {{ film.gross_worldwide }}$<br>
+Премьера в мире {{ film.world_premiere }}<br>
+Время {{ film.runtime }} мин.<br>
+{{film.description}} <br>
 
 
 В главных ролях:

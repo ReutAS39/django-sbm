@@ -27,30 +27,37 @@ class Person(models.Model):
 
 
 class Film(models.Model):
-    title = models.CharField(max_length=255, verbose_name='Название')
+    title = models.CharField(max_length=100, verbose_name='Название')
     rating = models.FloatField(default=0.0, verbose_name='Рейтинг')
-    orig_title = models.CharField(max_length=255, verbose_name='Оригинальное название')
+    orig_title = models.CharField(max_length=100, verbose_name='Оригинальное название')
     age_rate = models.CharField(max_length=10, verbose_name='Возрастной рейтинг')
-    year = models.IntegerField(verbose_name='Год производства')
-    country = models.CharField(max_length=255, verbose_name='Страна')
+    year = models.PositiveSmallIntegerField(verbose_name='Год производства')
+    country = models.CharField(max_length=50, verbose_name='Страна')
     genre = models.ManyToManyField(Genre, through='FilmGenre', verbose_name='Жанр')
-    tagline = models.CharField(max_length=255, verbose_name='Слоган')
+    tagline = models.CharField(max_length=100, verbose_name='Слоган')
     actor = models.ManyToManyField(Person, blank=True, through='FilmActor', related_name='film_actor', verbose_name='Актёр')
     director = models.ManyToManyField(Person, blank=True, through='FilmDirector', related_name='film_director', verbose_name='Режиссёр')
     writer = models.ManyToManyField(Person, blank=True, through='FilmWriter', related_name='film_writer', verbose_name='Сценарий')
     producer = models.ManyToManyField(Person, blank=True, through='FilmProducer', related_name='film_producer', verbose_name='Продюсер')
     operator = models.ManyToManyField(Person, blank=True, through='FilmOperator', related_name='film_operator', verbose_name='Оператор')
     composer = models.ManyToManyField(Person, blank=True, through='FilmComposer', related_name='film_composer', verbose_name='Композитор')
-    budget = models.IntegerField(verbose_name='Бюджет')
+    budget = models.PositiveSmallIntegerField(verbose_name='Бюджет')
+    gross_worldwide = models.PositiveSmallIntegerField(verbose_name='Сборы в мире', default=0)
+    world_premiere = models.DateField(verbose_name='Премьера в мире')
+    runtime = models.PositiveSmallIntegerField(verbose_name='Хронометраж')
     description = models.TextField(verbose_name='Обзор')
     poster = models.ImageField(upload_to="film/poster/%Y/%m/%d/", verbose_name='Постер')
-    frame = models.ImageField(upload_to="film/frame/%Y/%m/%d/", verbose_name='Изображения')
 
     def __str__(self):
         return self.title
 
     def get_absolute_url(self):
         return reverse('film', args=[str(self.pk)])
+
+
+class FilmFrame(models.Model):
+    film = models.ForeignKey(Film, on_delete=models.CASCADE)
+    frame = models.ImageField(upload_to="film/frame/%Y/%m/%d/", verbose_name='Изображения')
 
 
 class FilmGenre(models.Model):
