@@ -27,7 +27,8 @@
 {{ g.name }}
 {% endfor %}
 <br>
-Всего фильмов {{ person.film_actor.count }}<br>
+{% get_films as films %}
+Всего фильмов {{ films|length }} <br>
 
 
 Лучшие фильмы
@@ -65,15 +66,16 @@
 <!--    <li>    <a href="{{ c.get_absolute_url }}">{{ c }}</a> </li>-->
 <!--{% endfor %}-->
 <!--</ul>-->
-{% get_films as films %}
-<br>
-Всего    {{ films }}
+
+
 
 <ul>
 {% for f in films %}
-<li> <a href="{{ f.get_absolute_url }}">{{ f }}</a>   из тэга </li>
+<li> <a href="{{ f.get_absolute_url }}">{{ f }}</a> </li>
 {% endfor %}
 </ul>
+
+
 
 {% endblock content %}
 </body>

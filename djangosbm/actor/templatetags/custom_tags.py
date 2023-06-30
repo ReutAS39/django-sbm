@@ -14,7 +14,7 @@ def get_films(context, **kwargs):
     as_producer = FilmProducer.objects.filter(person_id=context['person'].id)
     as_operator = FilmOperator.objects.filter(person_id=context['person'].id)
     as_composer = FilmComposer.objects.filter(person_id=context['person'].id)
-    films = chain(as_actor, as_director, as_writer, as_producer, as_composer, as_operator )
+    films = chain(as_actor, as_director, as_writer, as_producer, as_composer, as_operator)
     film = []
     for f in films:
         film.append(f.film)
