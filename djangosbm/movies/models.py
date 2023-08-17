@@ -12,12 +12,13 @@ class Genre(models.Model):
 
 class Person(models.Model):
     name = models.CharField(max_length=255, unique=True, verbose_name='Имя')
+    #orig_name = models.CharField(max_length=255, unique=True, verbose_name='Оригинальное имя')
     photo = models.ImageField(upload_to="person/%Y/%m/%d/", blank=True, verbose_name='Фото')
     # career = models.ManyToManyField(#, through='FilmActor')
     height = models.FloatField(blank=True, null=True, verbose_name='Рост')
     date_of_birth = models.DateField(blank=True, null=True, verbose_name='Дата рождения')
     birthplace = models.CharField(max_length=255, blank=True, null=True, verbose_name='Место рождения')
-    genres = models.ManyToManyField(Genre, through='PersonGenre', blank=True, verbose_name='Жанры')
+    genres = models.ManyToManyField(Genre, through='PersonGenre', blank=True, verbose_name='Жанры') # должно из Film
 
     def __str__(self):
         return self.name

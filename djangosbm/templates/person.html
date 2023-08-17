@@ -17,14 +17,16 @@
 {% if person.photo %}
 <p><img class="img-article-left" src="{{person.photo.url}}"></p>
 {% endif %}
+Карьера <br>
 {% if person.height%}
 Рост {{person.height }} <br>
 {% endif %}
 Дата рождения {{person.date_of_birth}} <br>
 Место рождения {{person.birthplace}} <br>
 Жанры
+{% get_genres as genres %}
 {% for g in genres %}
-{{ g.name }}
+{{ g }}
 {% endfor %}
 <br>
 {% get_films as films %}
