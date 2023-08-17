@@ -19,11 +19,6 @@ def get_films(context, **kwargs):
     for f in films:
         film.append(f.film)
 
-    genres = list(set(film))
-    genre = []
-    for g in genres:
-        genre.append(Genre.objects.get(id=FilmGenre.objects.get(id=g.id).genre_id))
-
     return set(film)
 
 @register.simple_tag(takes_context=True, name='get_genres')
@@ -39,9 +34,14 @@ def get_genres(context, **kwargs):
     for f in films:
         film.append(f.film)
 
-    genres = list(set(film))
+    # films = list(set(film))
+    # genre = []
+    # for g in films:
+    #     genre.append(Genre.objects.get(id=FilmGenre.objects.get(id=g.id).genre_id))
+
+    films = list(set(film))
     genre = []
-    for g in genres:
+    for g in films:
         genre.append(Genre.objects.get(id=FilmGenre.objects.get(id=g.id).genre_id))
 
     return set(genre)

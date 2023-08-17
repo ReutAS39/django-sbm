@@ -12,13 +12,13 @@ class Genre(models.Model):
 
 class Person(models.Model):
     name = models.CharField(max_length=255, unique=True, verbose_name='Имя')
-    #orig_name = models.CharField(max_length=255, unique=True, verbose_name='Оригинальное имя')
+    orig_name = models.CharField(max_length=255, unique=True, verbose_name='Оригинальное имя')
     photo = models.ImageField(upload_to="person/%Y/%m/%d/", blank=True, verbose_name='Фото')
     # career = models.ManyToManyField(#, through='FilmActor')
     height = models.FloatField(blank=True, null=True, verbose_name='Рост')
     date_of_birth = models.DateField(blank=True, null=True, verbose_name='Дата рождения')
     birthplace = models.CharField(max_length=255, blank=True, null=True, verbose_name='Место рождения')
-    genres = models.ManyToManyField(Genre, through='PersonGenre', blank=True, verbose_name='Жанры') # должно из Film
+    # genres = models.ManyToManyField(Genre, through='PersonGenre', blank=True, verbose_name='Жанры') # должно из Film
 
     def __str__(self):
         return self.name
@@ -34,7 +34,7 @@ class Film(models.Model):
     age_rate = models.CharField(max_length=10, verbose_name='Возрастной рейтинг')
     year = models.PositiveSmallIntegerField(verbose_name='Год производства')
     country = models.CharField(max_length=50, verbose_name='Страна')
-    genre = models.ManyToManyField(Genre, through='FilmGenre', verbose_name='Жанр')
+    genre = models.ManyToManyField(Genre, through='FilmGenre', verbose_name='Жанр', blank=True)
     tagline = models.CharField(max_length=100, verbose_name='Слоган')
     actor = models.ManyToManyField(Person, blank=True, through='FilmActor', related_name='film_actor', verbose_name='Актёр')
     director = models.ManyToManyField(Person, blank=True, through='FilmDirector', related_name='film_director', verbose_name='Режиссёр')
@@ -66,9 +66,9 @@ class FilmGenre(models.Model):
     genre = models.ForeignKey(Genre, on_delete=models.CASCADE)
 
 
-class PersonGenre(models.Model):
-    person = models.ForeignKey(Person, on_delete=models.CASCADE, related_name='genre_actor')
-    genre = models.ForeignKey(Genre, on_delete=models.CASCADE)
+# class PersonGenre(models.Model):
+#     person = models.ForeignKey(Person, on_delete=models.CASCADE, related_name='genre_actor')
+#     genre = models.ForeignKey(Genre, on_delete=models.CASCADE)
 
 
 class FilmActor(models.Model):
