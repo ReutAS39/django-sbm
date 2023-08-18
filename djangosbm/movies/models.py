@@ -12,13 +12,12 @@ class Genre(models.Model):
 
 class Person(models.Model):
     name = models.CharField(max_length=255, unique=True, verbose_name='Имя')
-    orig_name = models.CharField(max_length=255, unique=True, verbose_name='Оригинальное имя')
+    orig_name = models.CharField(max_length=255, unique=True, blank=True, verbose_name='Оригинальное имя')
     photo = models.ImageField(upload_to="person/%Y/%m/%d/", blank=True, verbose_name='Фото')
     # career = models.ManyToManyField(#, through='FilmActor')
     height = models.FloatField(blank=True, null=True, verbose_name='Рост')
     date_of_birth = models.DateField(blank=True, null=True, verbose_name='Дата рождения')
     birthplace = models.CharField(max_length=255, blank=True, null=True, verbose_name='Место рождения')
-    # genres = models.ManyToManyField(Genre, through='PersonGenre', blank=True, verbose_name='Жанры') # должно из Film
 
     def __str__(self):
         return self.name
@@ -42,10 +41,10 @@ class Film(models.Model):
     producer = models.ManyToManyField(Person, blank=True, through='FilmProducer', related_name='film_producer', verbose_name='Продюсер')
     operator = models.ManyToManyField(Person, blank=True, through='FilmOperator', related_name='film_operator', verbose_name='Оператор')
     composer = models.ManyToManyField(Person, blank=True, through='FilmComposer', related_name='film_composer', verbose_name='Композитор')
-    budget = models.PositiveSmallIntegerField(blank=True, verbose_name='Бюджет')
-    gross_worldwide = models.PositiveSmallIntegerField(blank=True, verbose_name='Сборы в мире', default=0)
-    world_premiere = models.DateField(blank=True, verbose_name='Премьера в мире')
-    runtime = models.PositiveSmallIntegerField(blank=True, verbose_name='Хронометраж')
+    budget = models.PositiveSmallIntegerField(null=True, blank=True, verbose_name='Бюджет')
+    gross_worldwide = models.PositiveSmallIntegerField(null=True, blank=True, verbose_name='Сборы в мире', default=0)
+    world_premiere = models.DateField(null=True,blank=True, verbose_name='Премьера в мире')
+    runtime = models.PositiveSmallIntegerField(null=True, blank=True, verbose_name='Хронометраж')
     description = models.TextField(verbose_name='Обзор')
     poster = models.ImageField(upload_to="film/poster/%Y/%m/%d/", null=True, verbose_name='Постер')
 
@@ -64,11 +63,6 @@ class FilmFrame(models.Model):
 class FilmGenre(models.Model):
     film = models.ForeignKey(Film, on_delete=models.CASCADE, related_name='genre_film')
     genre = models.ForeignKey(Genre, on_delete=models.CASCADE)
-
-
-# class PersonGenre(models.Model):
-#     person = models.ForeignKey(Person, on_delete=models.CASCADE, related_name='genre_actor')
-#     genre = models.ForeignKey(Genre, on_delete=models.CASCADE)
 
 
 class FilmActor(models.Model):
@@ -95,11 +89,15 @@ class FilmOperator(models.Model):
     film = models.ForeignKey(Film, on_delete=models.CASCADE, related_name='operator_film')
     person = models.ForeignKey(Person, on_delete=models.CASCADE)
 
+    def __str__(self):
+        return 'Операторъ'
 
 class FilmComposer(models.Model):
     film = models.ForeignKey(Film, on_delete=models.CASCADE, related_name='composer_film')
     person = models.ForeignKey(Person, on_delete=models.CASCADE)
 
+    def __str__(self):
+        return 'Композиторъ'
 
 class Review(models.Model):
     film = models.ForeignKey(Film, on_delete=models.CASCADE, related_name='reviews_film')

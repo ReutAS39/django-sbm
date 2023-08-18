@@ -54,7 +54,9 @@
 <a href="{{ c.get_absolute_url }}">{{ c.name }}</a>
 {% endfor %}
 <br>
+{% if film.budget %}
 Бюджет {{ film.budget|digit }}$<br>
+{% endif %}
 Сборы в мире {{ film.gross_worldwide|digit }}$<br>
 Премьера в мире {{ film.world_premiere }}<br>
 Время {{ film.runtime }} мин.<br>
