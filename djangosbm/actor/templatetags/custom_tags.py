@@ -34,14 +34,12 @@ def get_genres(context, **kwargs):
     for f in films:
         film.append(f.film)
 
-    # films = list(set(film))
-    # genre = []
-    # for g in films:
-    #     genre.append(Genre.objects.get(id=FilmGenre.objects.get(id=g.id).genre_id))
-
     films = list(set(film))
     genre = []
+    genres = []
     for g in films:
         genre.append(Genre.objects.get(id=FilmGenre.objects.get(id=g.id).genre_id))
+        for i in g.genre.values('name'):
+            genres.append(i['name'])
 
-    return set(genre)
+    return set(genres)
