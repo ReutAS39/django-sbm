@@ -17,8 +17,14 @@
 {% if person.photo %}
 <p><img class="img-article-left" src="{{person.photo.url}}"></p>
 {% endif %}
-Карьера {% get_career as career %}
-{{ career }}
+Карьера
+
+{% is_actor %}
+{% is_director %}
+{% is_writer %}
+{% is_producer %}
+{% is_operator %}
+{% is_composer %}
 <br>
 {% if person.height%}
 Рост {{person.height }} <br>

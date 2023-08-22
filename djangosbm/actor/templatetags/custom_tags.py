@@ -21,6 +21,7 @@ def get_films(context, **kwargs):
 
     return set(film)
 
+
 @register.simple_tag(takes_context=True, name='get_genres')
 def get_genres(context, **kwargs):
     as_actor = FilmActor.objects.filter(person_id=context['person'].id)
@@ -63,16 +64,71 @@ def get_career(context, **kwargs):
         'Композитор': as_composer_count,
     }
 
-    for k, v in career.items():
-        # print(k)
-        # print(v)
-
-        if v:
-            print(k, v)
-
-        else:
-            print('yув')
+    # for k, v in career.items():
+    #     # print(k)
+    #     # print(v)
+    #
+    #     if v:
+    #         print(k, v)
+    #
+    #     else:
+    #         print('yув')
 
     #print(career)
 
     pass
+
+
+@register.simple_tag(takes_context=True, name='is_actor')
+def is_actor(context, **kwargs):
+
+    # for i in FilmComposer.objects.filter(person_id=context['person'].id):
+    #     print(i)
+
+    if FilmActor.objects.filter(person_id=context['person'].id).count():
+        return 'Актёр'
+    else:
+        return ''
+
+
+@register.simple_tag(takes_context=True, name='is_director')
+def is_director(context, **kwargs):
+
+    if FilmDirector.objects.filter(person_id=context['person'].id).count():
+        return 'Режиссёр'
+    else:
+        return ''
+
+
+@register.simple_tag(takes_context=True, name='is_writer')
+def is_writer(context, **kwargs):
+
+    if FilmWriter.objects.filter(person_id=context['person'].id).count():
+        return 'Сценарист'
+    else:
+        return ''
+
+
+@register.simple_tag(takes_context=True, name='is_producer')
+def is_producer(context, **kwargs):
+
+    if FilmProducer.objects.filter(person_id=context['person'].id).count():
+        return 'Продюсер'
+    else:
+        return ''
+
+
+@register.simple_tag(takes_context=True, name='is_operator')
+def is_operator(context, **kwargs):
+
+    if FilmOperator.objects.filter(person_id=context['person'].id).count():
+        return 'Оператор'
+
+
+@register.simple_tag(takes_context=True, name='is_composer')
+def is_composer(context, **kwargs):
+
+    if FilmComposer.objects.filter(person_id=context['person'].id).count():
+        return 'Композитор'
+    else:
+        return ''

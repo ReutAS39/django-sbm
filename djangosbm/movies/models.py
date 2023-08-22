@@ -69,6 +69,9 @@ class FilmActor(models.Model):
     film = models.ForeignKey(Film, on_delete=models.CASCADE, related_name='actor_film')
     person = models.ForeignKey(Person, on_delete=models.CASCADE)
 
+    def __str__(self):
+        return 'Актёр'
+
 
 class FilmDirector(models.Model):
     film = models.ForeignKey(Film, on_delete=models.CASCADE, related_name='director_film')
@@ -90,14 +93,14 @@ class FilmOperator(models.Model):
     person = models.ForeignKey(Person, on_delete=models.CASCADE)
 
     def __str__(self):
-        return 'Операторъ'
+        return 'Оператор'
 
 class FilmComposer(models.Model):
     film = models.ForeignKey(Film, on_delete=models.CASCADE, related_name='composer_film')
     person = models.ForeignKey(Person, on_delete=models.CASCADE)
 
     def __str__(self):
-        return 'Композиторъ'
+        return 'Композитор'
 
 class Review(models.Model):
     film = models.ForeignKey(Film, on_delete=models.CASCADE, related_name='reviews_film')
