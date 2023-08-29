@@ -24,13 +24,13 @@ class FilmDetail(DetailView, FormMixin):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['genres'] = context['film'].genre.all()
-        context['actor'] = context['film'].actor.all()
-        context['director'] = context['film'].director.all()
-        context['operator'] = context['film'].operator.all()
-        context['writer'] = context['film'].writer.all()
-        context['producer'] = context['film'].producer.all()
-        context['composer'] = context['film'].composer.all()
+        # context['genres'] = context['film'].genre.all()
+        # context['actor'] = context['film'].actor.all()
+        # # context['director'] = context['film'].director.all()
+        # context['operator'] = context['film'].operator.all()
+        # # context['writer'] = context['film'].writer.all()
+        # context['producer'] = context['film'].producer.all()
+        # context['composer'] = context['film'].composer.all()
         return context
 
     def post(self, request, *args, **kwargs):

@@ -23,34 +23,34 @@
 Год производства {{film.year}} <br>
 Страна {{film.country}} <br>
 Жанр
-{% for g in genres %}
+{% for g in film.genre.all %}
 {{ g.name }}
 {% endfor %}
 <br>
 
 Слоган {{film.tagline}} <br>
 Режиссёр
-{% for d in director %}
+{% for d in film.director.all %}
 <a href="{{ d.get_absolute_url }}">{{ d.name }}</a>
 {% endfor %}
 <br>
 Сценарий
-{% for w in writer %}
+{% for w in film.writer.all %}
 <a href="{{ w.get_absolute_url }}">{{ w.name }}</a>
 {% endfor %}
 <br>
 Продюссер
-{% for p in producer %}
+{% for p in film.producer.all %}
 <a href="{{ p.get_absolute_url }}">{{ p.name }}</a>
 {% endfor %}
 <br>
 Оператор
-{% for o in operator %}
+{% for o in film.operator.all %}
 <a href="{{ o.get_absolute_url }}">{{ o.name }}</a>
 {% endfor %}
 <br>
 Композитор
-{% for c in composer %}
+{% for c in film.composer.all %}
 <a href="{{ c.get_absolute_url }}">{{ c.name }}</a>
 {% endfor %}
 <br>
@@ -64,7 +64,7 @@
 
 
 В главных ролях:
-{% for a in actor %}
+{% for a in film.actor.all %}
 <ul>
     <li>
     <div><a href="{{ a.get_absolute_url }}">{{ a.name }}</a></div>
