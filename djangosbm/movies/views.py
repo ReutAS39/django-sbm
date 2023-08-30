@@ -8,7 +8,6 @@ from movies.models import Film, Person
 
 class FilmList(ListView):
     model = Film
-    template_name = 'film_list.html'
     context_object_name = 'film_list'
 
     def get_context_data(self, **kwargs):
@@ -18,7 +17,6 @@ class FilmList(ListView):
 
 class FilmDetail(DetailView, FormMixin):
     model = Film
-    template_name = 'film.html'
     form_class = ReviewForm
     context_object_name = 'film'
 

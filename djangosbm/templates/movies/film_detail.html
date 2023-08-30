@@ -1,0 +1,284 @@
+{% extends 'movies/base.html' %}
+{% load custom_filters %}
+
+{% block content %}
+    <div class="left-ads-display col-lg-8">
+        <div class="row">
+            <div class="desc1-left col-md-6">
+                <img src="{{ film.poster.url }}" class="img-fluid" alt="">
+            </div>
+            <div class="desc1-right col-md-6 pl-lg-4">
+                <h3 class="editContent" style="outline: none; cursor: inherit;">
+                    {{ film.title }}
+                </h3>
+                <h5 class="editContent">
+                    {{film.rating}}
+                </h5>
+                <h5 class="editContent">
+                    {{film.orig_title }} {{film.age_rate }}
+                </h5>
+                <ul>
+                    <li style="list-style: none">
+                        <span><b>Год производства:</b> {{ film.year }}</span></li>
+                    <li style="list-style: none">
+                        <span><b>Страна:</b> {{ film.country }}</span>
+                    </li>
+                    <li style="list-style: none"><span><b>Жанр:</b>
+                        {% for genre in film.genre.all %}
+                            {{ genre.name }}
+                        {% endfor %}
+                                    </span>
+                    </li>
+                    <li style="list-style: none">
+                        <span><b>Слоган:</b> {{ film.tagline }}</span>
+                    </li>
+                    <li style="list-style: none">
+                                    <span><b>Режиссер:</b>
+                                        {% for director in film.director.all %}
+                                            <a href="{{ director.get_absolute_url }}">{{ director.name }}</a>
+                                        {% endfor %}
+                                    </span>
+                    </li>
+                    <li style="list-style: none">
+                                    <span><b>Сценарий:</b>
+                                        {% for writer in film.writer.all %}
+                                            <a href="{{ writer.get_absolute_url }}">{{ writer.name }}</a>
+                                        {% endfor %}
+                                    </span>
+                    </li>
+                    <li style="list-style: none">
+                                    <span><b>Продюссер:</b>
+                                        {% for producer in film.producer.all %}
+                                            <a href="{{ producer.get_absolute_url }}">{{ producer.name }}</a>
+                                        {% endfor %}
+                                    </span>
+                    </li>
+                    <li style="list-style: none">
+                                    <span><b>Оператор:</b>
+                                        {% for operator in film.operator.all %}
+                                            <a href="{{ operator.get_absolute_url }}">{{ operator.name }}</a>
+                                        {% endfor %}
+                                    </span>
+                    </li>
+                    <li style="list-style: none">
+                                    <span><b>Композитор:</b>
+                                        {% for composer in film.composer.all %}
+                                            <a href="{{ composer.get_absolute_url }}">{{ composer.name }}</a>
+                                        {% endfor %}
+                                    </span>
+                    </li>
+                    <li style="list-style: none"><span><b>Актеры:</b>
+                        {% for actor in film.actor.all %}
+                            {{ actor.name }}
+                        {% endfor %}
+                                </span>
+                    </li>
+
+                    <li style="list-style: none">
+                        <span><b>Премьера в мире:</b> {{ film.world_premiere }}</span>
+                    </li>
+                    <li style="list-style: none">
+                        <span><b>Бюджет:</b> ${{ film.budget|digit }}</span></li>
+                    <li style="list-style: none">
+                        <span><b>Сборы в США:</b> $</span></li>
+                    <li style="list-style: none">
+                        <span><b>Сборы в мире:</b> ${{ film.gross_worldwide|digit }}</span>
+                    </li>
+                    <li style="list-style: none">
+                        <span><b>Премьера в мире:</b> {{ film.world_premiere }}</span>
+                    </li>
+                    <li style="list-style: none">
+                        <span><b>Время:</b> {{ film.runtime }} мин. </span>
+                    </li>
+                    <li style="list-style: none">
+                        <a href="#"><b>Рейтинг:</b>
+                            <span class="fa fa-star" aria-hidden="true"
+                                  style="outline: none; cursor: inherit;"></span>
+                            <span class="fa fa-star" aria-hidden="true"
+                                  style="outline: none; cursor: inherit;"></span>
+                            <span class="fa fa-star" aria-hidden="true"
+                                  style="outline: none; cursor: inherit;"></span>
+                            <span class="fa fa-star" aria-hidden="true"
+                                  style="outline: none; cursor: inherit;"></span>
+                            <span class="fa fa-star" aria-hidden="true"
+                                  style="outline: none; cursor: inherit;"></span>
+                            <span class="editContent"
+                                  style="outline: none; cursor: inherit;">5.0</span>
+                        </a>
+                    </li>
+                    <div class="share-desc">
+                        <div class="share">
+                            <h4 class="editContent"
+                                style="outline: none; cursor: inherit;">
+                                Share:</h4>
+                            <ul class="w3layouts_social_list list-unstyled">
+                                <li>
+                                    <a href="#" class="w3pvt_facebook editContent"
+                                       style="outline: none; cursor: inherit;">
+                                                <span class="fa fa-facebook-f"
+                                                      style="outline: none; cursor: inherit;"></span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#" class="w3pvt_twitter editContent"
+                                       style="outline: none; cursor: inherit;">
+                                                <span class="fa fa-twitter"
+                                                      style="outline: none; cursor: inherit;"></span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#" class="w3pvt_dribble editContent"
+                                       style="outline: none; cursor: inherit;">
+                                                <span class="fa fa-dribbble"
+                                                      style="outline: none; cursor: inherit;"></span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="clearfix"></div>
+                    </div>
+            </div>
+        </div>
+        <div class="row sub-para-w3layouts mt-5">
+
+            <h3 class="shop-sing editContent" style="outline: none; cursor: inherit;">
+                О фильме {{ film.title }}
+            </h3>
+            <p>
+                <img src="bundles/images/about.jpg" class="img-fluid" alt="">
+                <img src="bundles/images/admin.jpg" class="img-fluid" alt="">
+                <img src="bundles/images/d1.jpg" class="img-fluid" alt="">
+            </p>
+            <p class="editContent" style="outline: none; cursor: inherit;">
+                {{ film.description }}
+            </p>
+            <p class="mt-3 italic-blue editContent"
+               style="outline: none; cursor: inherit;">
+                <iframe width="560" height="315"
+                        src="https://www.youtube.com/embed/A36LahZNUiE?controls=0"
+                        frameborder="0" allow="accelerometer; autoplay;
+                                                                           encrypted-media; gyroscope; picture-in-picture"
+                        allowfullscreen>
+
+                </iframe>
+            </p>
+        </div>
+        <hr>
+        <div class="row">
+            <div class="single-form-left">
+                <!-- contact form grid -->
+                <div class="contact-single">
+                    <h3 class="editContent" style="outline: none; cursor: inherit;">
+                                    <span class="sub-tittle editContent"
+                                          style="outline: none; cursor: inherit;">02</span>Оставить
+                        отзыв</h3>
+                    <form action="#" method="get" class="mt-4">
+                        <div class="form-group editContent"
+                             style="outline: none; cursor: inherit;">
+                            <label for="contactcomment" class="editContent"
+                                   style="outline: none; cursor: inherit;">Ваш
+                                комментарий
+                                *</label>
+                            <textarea class="form-control border" rows="5"
+                                      id="contactcomment" required=""></textarea>
+                        </div>
+                        <div class="d-sm-flex">
+                            <div class="col-sm-6 form-group p-0 editContent"
+                                 style="outline: none; cursor: inherit;">
+                                <label for="contactusername" class="editContent"
+                                       style="outline: none; cursor: inherit;">Имя
+                                    *</label>
+                                <input type="text" class="form-control border"
+                                       id="contactusername" required="">
+                            </div>
+                            <div class="col-sm-6 form-group ml-sm-3 editContent"
+                                 style="outline: none; cursor: inherit;">
+                                <label for="contactemail" class="editContent"
+                                       style="outline: none; cursor: inherit;">Email
+                                    *</label>
+                                <input type="email" class="form-control border"
+                                       id="contactemail" required="">
+                            </div>
+                        </div>
+                        <button type="submit"
+                                class="mt-3 btn btn-success btn-block py-3"
+                                style="outline: none; cursor: inherit;">Отправить
+                        </button>
+                    </form>
+                </div>
+                <!--  //contact form grid ends here -->
+            </div>
+            <div class="media py-5">
+                <img src="bundles/images/te2.jpg" class="mr-3 img-fluid" alt="image"
+                     style="outline: none; cursor: inherit;">
+                <div class="media-body mt-4">
+                    <h5 class="mt-0 editContent"
+                        style="outline: none; cursor: inherit;">Daniel Doe</h5>
+                    <p class="mt-2 editContent" style="outline: none; cursor: inherit;">
+                        Cras sit amet nibh libero, in gravida nulla. Nulla vel metus
+                        scelerisque ante sollicitudin. Cras purus odio, vestibulum in
+                        vulputate at, tempus viverra turpis.
+                    </p>
+                    <div class="media mt-5 editContent"
+                         style="outline: none; cursor: inherit;">
+                        <a class="pr-3" href="#">
+                            <img src="bundles/images/te1.jpg" class="img-fluid "
+                                 alt="image" style="outline: none; cursor: inherit;">
+                        </a>
+                        <div class="media-body">
+                            <h5 class="mt-0 editContent"
+                                style="outline: none; cursor: inherit;">Leia Organa</h5>
+                            <p class="mt-2 editContent"
+                               style="outline: none; cursor: inherit;"> Cras sit amet
+                                nibh libero, in gravida nulla. Nulla vel metus
+                                scelerisque ante sollicitudin. Cras purus odio,
+                                vestibulum in vulputate at, tempus viverra turpis. Fusce
+                                condimentum nunc ac nisi vulputate fringilla..</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock content %}
+
+
+
+<!--В главных ролях:-->
+<!--{% for a in film.actor.all %}-->
+<!--<ul>-->
+<!--    <li>-->
+<!--    <div><a href="{{ a.get_absolute_url }}">{{ a.name }}</a></div>-->
+<!--    </li>-->
+<!--</ul>-->
+<!--{% endfor %}-->
+<!--<br>-->
+<!--        <div>-->
+<!--            <div>-->
+<!--                <form action="#" method="post" enctype="multipart/form-data">-->
+<!--{% csrf_token %}-->
+<!--                <div class="form-error">{{ form.non_field_errors }}</div>-->
+<!--{% for f in form %}-->
+<!--                <div>-->
+<!--                    <label class="form-label" for="{{ f.id_for_label }}">{{f.label}} </label>{{ f }}-->
+<!--                </div>-->
+<!--                <div class="form-error">{{ f.errors }}</div>-->
+<!--{% endfor %}-->
+<!--                <button type="submit">Отправить</button>-->
+<!--                </form>-->
+
+
+<!--{% for r in film.reviews_film.all %}-->
+<!--                <div class="comment">-->
+<!--                    <div class="comment_author"> {{ r.user }} </div>-->
+<!--                    <time class="comment_date"> {{ r.time_in|date:'d M Y' }}</time>-->
+<!--                    <div class="comment_author"> {{ r.title }} </div>-->
+<!--                    <p class="comment_text">{{ r.text }}</p>-->
+
+
+<!--                </div>-->
+<!--{% endfor %}-->
+
+
+
+>-->

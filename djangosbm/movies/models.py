@@ -52,7 +52,7 @@ class Film(models.Model):
         return self.title
 
     def get_absolute_url(self):
-        return reverse('film', args=[str(self.pk)])
+        return reverse('film_detail', args=[str(self.pk)])
 
 
 class FilmFrame(models.Model):
