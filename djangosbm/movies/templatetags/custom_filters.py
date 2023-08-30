@@ -5,4 +5,7 @@ register = template.Library()
 
 @register.filter()
 def digit(value):
-    return '{0:,}'.format(value).replace(',', ' ')
+    if value:
+        return '{0:,}'.format(value).replace(',', ' ')
+    else:
+        return '-'
