@@ -1,4 +1,3 @@
-from django.shortcuts import render
 from django.urls import reverse_lazy
 from django.views.generic import DetailView, ListView, CreateView, UpdateView
 from django.views.generic.edit import FormMixin
@@ -22,13 +21,7 @@ class FilmDetail(DetailView, FormMixin):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        # context['genres'] = context['film'].genre.all()
-        # context['actor'] = context['film'].actor.all()
-        # # context['director'] = context['film'].director.all()
-        # context['operator'] = context['film'].operator.all()
-        # # context['writer'] = context['film'].writer.all()
-        # context['producer'] = context['film'].producer.all()
-        # context['composer'] = context['film'].composer.all()
+
         return context
 
     def post(self, request, *args, **kwargs):
@@ -47,7 +40,7 @@ class FilmDetail(DetailView, FormMixin):
         return super().form_valid(form)
 
     def get_success_url(self, **kwargs):
-        return reverse_lazy('film', kwargs={'pk': self.get_object().pk})
+        return reverse_lazy('film_detail', kwargs={'pk': self.get_object().pk})
 
 
 class FilmAdd(CreateView):
