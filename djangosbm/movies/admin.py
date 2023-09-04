@@ -5,6 +5,7 @@ from movies.models import Film, Genre, Person, FilmFrame
 
 class FilmAdmin(admin.ModelAdmin):
     list_display = ('id', 'title')
+    list_display_links = ('title',)
     # list_filter = ('position', 'time_in', 'category__name')  # добавляем примитивные фильтры в нашу админку
     # search_fields = ('article', 'text')  # тут всё очень похоже на фильтры из запросов в базу
 
