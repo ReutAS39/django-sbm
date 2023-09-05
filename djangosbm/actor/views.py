@@ -7,7 +7,7 @@ from movies.models import Person
 
 class PersonDetail(DetailView):
     model = Person
-    template_name = 'person.html'
+    template_name = 'person/person_detail.html'
 
     context_object_name = 'person'
 

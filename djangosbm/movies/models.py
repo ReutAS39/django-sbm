@@ -23,7 +23,7 @@ class Person(models.Model):
         return self.name
 
     def get_absolute_url(self):
-        return reverse('person', args=[str(self.pk)])
+        return reverse('person_detail', args=[str(self.pk)])
 
 
 class Film(models.Model):

@@ -7,7 +7,7 @@ register = template.Library()
 
 
 @register.simple_tag(takes_context=True, name='get_films')
-def get_films(context, **kwargs):
+def get_films(context, count=3, **kwargs):
     as_actor = FilmActor.objects.filter(person_id=context['person'].id)
     as_director = FilmDirector.objects.filter(person_id=context['person'].id)
     as_writer = FilmWriter.objects.filter(person_id=context['person'].id)
@@ -19,7 +19,7 @@ def get_films(context, **kwargs):
     for f in films:
         film.append(f.film)
 
-    return set(film)
+    return list(set(film))[:count]
 
 
 @register.simple_tag(takes_context=True, name='get_genres')
