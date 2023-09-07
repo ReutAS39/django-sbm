@@ -1,6 +1,8 @@
 from itertools import chain
 
 from django import template
+from django.db.models import Avg
+
 from movies.models import *
 
 register = template.Library()
@@ -132,3 +134,9 @@ def is_composer(context, **kwargs):
         return 'Композитор'
     else:
         return ''
+
+@register.simple_tag(takes_context=True, name='get_rating')
+def get_rating(context, **kwargs):
+    rating = Rating.objects.filter(film_id=context['film'].id).aggregate(Avg('star'))
+
+    return rating

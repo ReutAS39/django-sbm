@@ -2,7 +2,7 @@ from django.contrib import admin
 from django.utils.safestring import mark_safe
 
 from movies.models import Film, Genre, Person, FilmFrame, Review, FilmGenre, FilmActor, FilmDirector, FilmWriter, \
-    FilmProducer, FilmOperator, FilmComposer
+    FilmProducer, FilmOperator, FilmComposer, RatingStar, Rating
 
 
 class ActorInlines(admin.StackedInline):
@@ -98,8 +98,17 @@ class ReviewAdmin(admin.ModelAdmin):
     readonly_fields = ('user', )
 
 
+class RatingStarAdmin(admin.ModelAdmin):
+    list_display = ('value',)
+
+class RatingAdmin(admin.ModelAdmin):
+    list_display = ('film', 'star', 'ip')
+
+
 # admin.site.register(Film, FilmAdmin)
 admin.site.register(Genre, GenreAdmin)
 admin.site.register(Person, PersonAdmin)
 admin.site.register(FilmFrame, FilmFrameAdmin)
 admin.site.register(Review, ReviewAdmin)
+admin.site.register(RatingStar, RatingStarAdmin)
+admin.site.register(Rating, RatingAdmin)

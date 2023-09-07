@@ -14,7 +14,6 @@ class Person(models.Model):
     name = models.CharField(max_length=255, unique=True, verbose_name='Имя')
     orig_name = models.CharField(max_length=255, unique=True, blank=True, verbose_name='Оригинальное имя')
     photo = models.ImageField(upload_to="person/%Y/%m/%d/", blank=True, verbose_name='Фото')
-    # career = models.ManyToManyField(#, through='FilmActor')
     height = models.FloatField(blank=True, null=True, verbose_name='Рост')
     date_of_birth = models.DateField(blank=True, null=True, verbose_name='Дата рождения')
     birthplace = models.CharField(max_length=255, blank=True, null=True, verbose_name='Место рождения')
@@ -28,7 +27,7 @@ class Person(models.Model):
 
 class Film(models.Model):
     title = models.CharField(max_length=100, verbose_name='Название')
-    rating = models.FloatField(default=0.0, verbose_name='Рейтинг')
+    #rating = models.FloatField(default=0.0, verbose_name='Рейтинг')
     orig_title = models.CharField(max_length=100, blank=True, verbose_name='Оригинальное название')
     age_rate = models.CharField(max_length=10, blank=True, verbose_name='Возрастной рейтинг')
     year = models.PositiveSmallIntegerField(null=True, blank=True, verbose_name='Год производства')
@@ -53,6 +52,30 @@ class Film(models.Model):
 
     def get_absolute_url(self):
         return reverse('film_detail', args=[str(self.pk)])
+
+# POSITION = (
+#     ('1', 1),
+#     ('2', 2),
+#     ('3', 3),
+#     ('4', 4),
+#     ('5', 5),
+# )
+
+class RatingStar(models.Model):
+    value = models.SmallIntegerField(default=0)
+
+    def __str__(self):
+        return f'{self.value}'
+
+    class Meta:
+        ordering = ['-value']
+
+class Rating(models.Model):
+    ip = models.CharField(max_length=15)
+    star = models.ForeignKey(RatingStar, on_delete=models.CASCADE, verbose_name="звезда")
+    # star = models.SmallIntegerField(choices=POSITION, default=0)
+    film = models.ForeignKey(Film, on_delete=models.CASCADE, verbose_name="фильм")
+
 
 
 class FilmFrame(models.Model):

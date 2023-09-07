@@ -1,7 +1,8 @@
 from django import forms
-from django.forms import Textarea
+from django.forms import Textarea, ModelForm
 
-from movies.models import Film, Review
+
+from movies.models import Film, Review, Rating, RatingStar
 
 
 class FilmForm(forms.ModelForm):
@@ -29,4 +30,15 @@ class ReviewForm(forms.ModelForm):
         fields = [
            'title',
            'text',
+        ]
+
+class RatingForm(forms.ModelForm):
+    star = forms.ModelChoiceField(
+        queryset=RatingStar.objects.all(), widget=forms.RadioSelect(), empty_label=None
+    )
+
+    class Meta:
+        model = Rating
+        fields = [
+            'star',
         ]
