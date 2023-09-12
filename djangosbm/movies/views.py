@@ -25,7 +25,6 @@ class FilmDetail(DetailView, FormMixin):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['star_form'] = RatingForm()
-        print(context['film'].id)
         return context
 
     def post(self, request, *args, **kwargs):
@@ -56,7 +55,7 @@ class FilmEdit(UpdateView):
 
     form_class = FilmForm
     model = Film
-    template_name = 'film_edit.html'
+    template_name = 'movies/film_edit.html'
 
 
 class AddStarRating(View):

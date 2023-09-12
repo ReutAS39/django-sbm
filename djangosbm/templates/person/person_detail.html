@@ -18,20 +18,24 @@
             </div>
             <div class="desc1-right col-md-6 pl-lg-4">
                 <h3 class="editContent">
-                    {{ movie.title }}
+                    {{ person.name }}
                 </h3>
                 <h5 class="editContent"></h5>
                 <ul>
                     <li>
-                        <span><b>Карьера:</b> {% is_actor %}
-{% is_director %}
-{% is_writer %}
-{% is_producer %}
-{% is_operator %}
-{% is_composer %} </span></li>
+                        <span><b>Карьера:</b>
+        {% is_actor %}
+        {% is_director %}
+        {% is_writer %}
+        {% is_producer %}
+        {% is_operator %}
+        {% is_composer %}
+                        </span></li>
+                    {% if person.height %}
                     <li>
                         <span><b>Рост:</b> {{ person.height }} м</span></li>
                     <li>
+                        {% endif %}
                         <span><b>Дата рождения:</b> {{ person.date_of_birth }} </span></li>
                                         <li>
                         <span><b>Место рождения:</b> {{ person.birthplace }} </span></li>
@@ -44,27 +48,17 @@
                     </span></li>
 
                         {% get_films as films %}
-                        <span><b>Всего фильмов:</b> {{ films|length }} </span></li>
-              Лучшие фильмы
-                    <ul>
-{% for f in films %}
-<li> <a href="{{ f.get_absolute_url }}">{{ f }}</a> </li>
-{% endfor %}
-</ul>
+                     <li>   <span><b>Всего фильмов:</b> {{ films|length }} </span></li>
 
-<!--                    <li>-->
-<!--                        <span><b>Режиссер:</b>-->
-<!--                            {% for movie in person.film_director.all %}-->
-<!--                                {{ movie.title }}-->
-<!--                            {% endfor %}-->
-<!--                        </span>-->
-<!--                    </li>-->
-<!--                    <li><span><b>Актер:</b>-->
-<!--                        {% for movie in person.film_actor.all %}-->
-<!--                            {{ movie.title }}-->
-<!--                        {% endfor %}-->
-<!--                    </span>-->
-<!--                    </li>-->
+
+<li style="list-style: none">
+    <span><b>Лучшие фильмы</b></span></li>
+        {% for f in films %}
+  <li>  <a href="{{ f.get_absolute_url }}">{{ f }}</a></li>
+
+
+{% endfor %}
+
                 </ul>
             </div>
         </div>
@@ -78,3 +72,5 @@
         </div>
     </div>
 {% endblock movie %}
+    </div>
+     </div>

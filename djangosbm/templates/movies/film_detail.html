@@ -25,7 +25,7 @@
                     {{film.rating}}
                 </h5>
                 <h5 class="editContent">
-                    {{film.orig_title }} {{film.age_rate }}
+                    {{film.orig_title }} {{film.age_rate }}+
                 </h5>
                 <ul>
                     <li style="list-style: none">
@@ -89,8 +89,6 @@
                     </li>
                     <li style="list-style: none">
                         <span><b>Бюджет:</b> ${{ film.budget|digit }}</span></li>
-                    <li style="list-style: none">
-                        <span><b>Сборы в США:</b> $</span></li>
                     <li style="list-style: none">
                         <span><b>Сборы в мире:</b> ${{ film.gross_worldwide|digit }}</span>
                     </li>
@@ -222,9 +220,9 @@
 
 
 
-                </div>
 
-            </div>
+
+
 
 {% endblock movie %}
 
@@ -238,7 +236,3 @@
 <!--    </li>-->
 <!--</ul>-->
 <!--{% endfor %}-->
-
-
-
-

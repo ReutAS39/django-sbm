@@ -27,9 +27,9 @@ class Person(models.Model):
 
 class Film(models.Model):
     title = models.CharField(max_length=100, verbose_name='Название')
-    #rating = models.FloatField(default=0.0, verbose_name='Рейтинг')
+    # rating = models.FloatField(default=0.0, verbose_name='Рейтинг')
     orig_title = models.CharField(max_length=100, blank=True, verbose_name='Оригинальное название')
-    age_rate = models.CharField(max_length=10, blank=True, verbose_name='Возрастной рейтинг')
+    age_rate = models.PositiveSmallIntegerField(null=True, blank=True, verbose_name='Возрастной рейтинг')
     year = models.PositiveSmallIntegerField(null=True, blank=True, verbose_name='Год производства')
     country = models.CharField(max_length=50, blank=True, verbose_name='Страна')
     genre = models.ManyToManyField(Genre, through='FilmGenre', related_name='film_genre', verbose_name='Жанр', blank=True)
@@ -42,7 +42,7 @@ class Film(models.Model):
     composer = models.ManyToManyField(Person, blank=True, through='FilmComposer', related_name='film_composer', verbose_name='Композитор')
     budget = models.PositiveSmallIntegerField(null=True, blank=True, verbose_name='Бюджет')
     gross_worldwide = models.PositiveSmallIntegerField(null=True, blank=True, verbose_name='Сборы в мире', default=0)
-    world_premiere = models.DateField(null=True,blank=True, verbose_name='Премьера в мире')
+    world_premiere = models.DateField(null=True, blank=True, verbose_name='Премьера в мире')
     runtime = models.PositiveSmallIntegerField(null=True, blank=True, verbose_name='Хронометраж')
     description = models.TextField(verbose_name='Обзор')
     poster = models.ImageField(upload_to="film/poster/%Y/%m/%d/", null=True, verbose_name='Постер')
@@ -61,6 +61,7 @@ class Film(models.Model):
 #     ('5', 5),
 # )
 
+
 class RatingStar(models.Model):
     value = models.SmallIntegerField(default=0)
 
@@ -70,12 +71,12 @@ class RatingStar(models.Model):
     class Meta:
         ordering = ['-value']
 
+
 class Rating(models.Model):
     ip = models.CharField(max_length=15)
     star = models.ForeignKey(RatingStar, on_delete=models.CASCADE, verbose_name="звезда")
     # star = models.SmallIntegerField(choices=POSITION, default=0)
     film = models.ForeignKey(Film, on_delete=models.CASCADE, verbose_name="фильм")
-
 
 
 class FilmFrame(models.Model):
@@ -118,12 +119,14 @@ class FilmOperator(models.Model):
     def __str__(self):
         return 'Оператор'
 
+
 class FilmComposer(models.Model):
     film = models.ForeignKey(Film, on_delete=models.CASCADE, related_name='composer_film')
     person = models.ForeignKey(Person, on_delete=models.CASCADE)
 
     def __str__(self):
         return 'Композитор'
+
 
 class Review(models.Model):
     film = models.ForeignKey(Film, on_delete=models.CASCADE, related_name='reviews_film')

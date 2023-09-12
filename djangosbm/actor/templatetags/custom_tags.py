@@ -9,19 +9,20 @@ register = template.Library()
 
 
 @register.simple_tag(takes_context=True, name='get_films')
-def get_films(context, count=3, **kwargs):
+def get_films(context, **kwargs):
     as_actor = FilmActor.objects.filter(person_id=context['person'].id)
     as_director = FilmDirector.objects.filter(person_id=context['person'].id)
     as_writer = FilmWriter.objects.filter(person_id=context['person'].id)
     as_producer = FilmProducer.objects.filter(person_id=context['person'].id)
     as_operator = FilmOperator.objects.filter(person_id=context['person'].id)
     as_composer = FilmComposer.objects.filter(person_id=context['person'].id)
-    films = chain(as_actor, as_director, as_writer, as_producer, as_composer, as_operator)
-    film = []
-    for f in films:
-        film.append(f.film)
+    all_films = list(chain(as_actor, as_director, as_writer, as_producer, as_composer, as_operator))
 
-    return list(set(film))[:count]
+    films = []
+    for f in all_films:
+        films.append(f.film)
+
+    return set(films)
 
 
 @register.simple_tag(takes_context=True, name='get_genres')
@@ -35,11 +36,13 @@ def get_genres(context, **kwargs):
 
     return set(genres)
 
+
 @register.simple_tag(takes_context=True, name='get_rating')
 def get_rating(context, **kwargs):
     rating = Rating.objects.filter(film_id=context['film'].id).aggregate(Avg('star'))
 
     return rating
+
 
 @register.simple_tag(takes_context=True, name='is_actor')
 def is_actor(context, **kwargs):
@@ -80,12 +83,10 @@ def is_operator(context, **kwargs):
     else:
         return ''
 
+
 @register.simple_tag(takes_context=True, name='is_composer')
 def is_composer(context, **kwargs):
     if FilmComposer.objects.filter(person_id=context['person'].id).count():
         return 'Композитор'
     else:
         return ''
-
-
-
