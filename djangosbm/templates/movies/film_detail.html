@@ -79,7 +79,7 @@
                     </li>
                     <li style="list-style: none"><span><b>Актеры:</b>
                         {% for actor in film.actor.all %}
-                            {{ actor.name }}
+                          <a href="{{ actor.get_absolute_url }}">  {{ actor.name }}</a>
                         {% endfor %}
                                 </span>
                     </li>

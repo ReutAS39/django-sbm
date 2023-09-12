@@ -42,10 +42,9 @@
                             {{ g }}
                             {% endfor %}
                     </span></li>
-                    <li>
+
                         {% get_films as films %}
                         <span><b>Всего фильмов:</b> {{ films|length }} </span></li>
-
               Лучшие фильмы
                     <ul>
 {% for f in films %}
