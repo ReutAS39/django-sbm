@@ -18,9 +18,7 @@ def get_films(context, **kwargs):
     as_composer = FilmComposer.objects.filter(person_id=context['person'].id)
     all_films = list(chain(as_actor, as_director, as_writer, as_producer, as_composer, as_operator))
 
-    films = []
-    for f in all_films:
-        films.append(f.film)
+    films = [f.film for f in all_films]
 
     return set(films)
 
