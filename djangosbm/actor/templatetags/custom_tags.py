@@ -3,7 +3,8 @@ from itertools import chain
 from django import template
 from django.db.models import Avg
 
-from movies.models import *
+from movies.models import FilmWriter, FilmDirector, FilmActor, FilmProducer, FilmOperator, FilmComposer, \
+    FilmGenre, Genre, Rating
 
 register = template.Library()
 
@@ -18,9 +19,14 @@ def get_films(context, **kwargs):
     as_composer = FilmComposer.objects.filter(person_id=context['person'].id)
     all_films = list(chain(as_actor, as_director, as_writer, as_producer, as_composer, as_operator))
 
-    films = [f.film for f in all_films]
+    films = {f.film for f in all_films}
 
-    return set(films)
+    # films = []
+    # for f in all_films:
+    #     if f.film not in films:
+    #         films.append(f.film)
+
+    return films
 
 
 @register.simple_tag(takes_context=True, name='get_genres')
@@ -30,9 +36,10 @@ def get_genres(context, **kwargs):
     for g in get_films(context):
         genre.append(Genre.objects.get(id=FilmGenre.objects.get(id=g.id).genre_id))
         for i in g.genre.values('name'):
-            genres.append(i['name'])
+            if i['name'] not in genres:
+                genres.append(i['name'])
 
-    return set(genres)
+    return genres
 
 
 @register.simple_tag(takes_context=True, name='get_rating')

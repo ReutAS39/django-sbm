@@ -101,16 +101,22 @@ class FilmDirector(models.Model):
     film = models.ForeignKey(Film, on_delete=models.CASCADE, related_name='director_film')
     person = models.ForeignKey(Person, on_delete=models.CASCADE)
 
+    def __str__(self):
+        return 'Режиссёр'
 
 class FilmWriter(models.Model):
     film = models.ForeignKey(Film, on_delete=models.CASCADE, related_name='writer_film')
     person = models.ForeignKey(Person, on_delete=models.CASCADE)
 
+    def __str__(self):
+        return 'Сценарист'
 
 class FilmProducer(models.Model):
     film = models.ForeignKey(Film, on_delete=models.CASCADE, related_name='producer_film')
     person = models.ForeignKey(Person, on_delete=models.CASCADE)
 
+    def __str__(self):
+        return 'Продюссер'
 
 class FilmOperator(models.Model):
     film = models.ForeignKey(Film, on_delete=models.CASCADE, related_name='operator_film')
